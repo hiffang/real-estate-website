@@ -21,11 +21,11 @@ const DashboardHome = ({ children }) => {
                     </li>
                     <li>
                         <NavLink
-                            to="/dashboard/user-analytics"
+                            to="/dashboard/analytics"
                             className="flex items-center py-2 px-4 text-gray-700 hover:bg-gray-100"
                             activeClassName="bg-blue-500 text-white"
                         >
-                            Check User Analytics
+                            Check Analytics
                         </NavLink>
                     </li>
                     <li>

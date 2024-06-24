@@ -82,7 +82,7 @@ export default function Header() {
             </Link>
             <Link to='/create-listing'>
               <li className='text-black text-1xl font-semibold py-1 hover:text-cyan-400 transition'>
-                Create a Listing
+                Add your listing
               </li>
             </Link>
             <Link to='/profile'>

@@ -183,3 +183,13 @@ export const disapproveListing = async (req, res, next) => {
     next(error);
   }
 };
+
+export const totalListings =  async (req, res) => {
+  try {
+    const totalListings = await Listing.countDocuments({ status: 'approved' });
+    res.json({ totalListings });
+  } catch (error) {
+    console.error('Error fetching total listings:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};

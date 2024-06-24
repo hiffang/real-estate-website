@@ -19,6 +19,7 @@ import CookieConsent from './components/CookieConsent';
 import DashboardApprove from './pages/Dashboard/DashboardApprove.jsx';
 import DashboardHome from './pages/Dashboard/DashboardHome.jsx';
 import DashboardListings from './pages/Dashboard/DashboardListings.jsx';
+import DashboardAnalytics from './pages/Dashboard/DashboardAnalytics.jsx'
 
 
 export default function App() {
@@ -47,6 +48,7 @@ export default function App() {
         <Route element={<OnlyAdminPrivateRoute />}>
           <Route path='/dashboard/dashboard-approve' element={<DashboardApprove />} />
           <Route path='/dashboard/view-listings' element={<DashboardListings />} />
+          <Route path='/dashboard/analytics' element={<DashboardAnalytics />} />
           <Route path='/dashboard-home' element={<DashboardHome />} />
         </Route>
 

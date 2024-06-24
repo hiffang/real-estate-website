@@ -1,5 +1,5 @@
 import express from 'express';
-import { createListing, deleteListing, updateListing, getListing, getListings, getPendingListings, disapproveListing } from '../controllers/listing.controller.js';
+import { createListing, deleteListing, updateListing, getListing, getListings, getPendingListings, disapproveListing, totalListings } from '../controllers/listing.controller.js';
 import { verifyToken } from '../utils/verifyUser.js';
 import { approveListing } from './../controllers/listing.controller.js';
 
@@ -13,6 +13,7 @@ router.get('/get', getListings);
 router.get('/pending', getPendingListings);
 router.patch('/approve/:id', verifyToken, approveListing);
 router.patch('/disapprove/:id', verifyToken, disapproveListing); 
+router.get('/get-total', totalListings);
 
 
 export default router;
