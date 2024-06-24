@@ -49,6 +49,7 @@ export default function Signup() {
         <input type="text" placeholder='E-mail' className='border p-3 rounded-lg' id='email' onChange={handleChange}/>
         <input type="text" placeholder='Username' className='border p-3 rounded-lg' id='username' onChange={handleChange} />
         <input type="text" placeholder='Password' className='border p-3 rounded-lg' id='password' onChange={handleChange}/>
+        <input type="text" placeholder='Phone Number' className='border p-3 rounded-lg' id='number' onChange={handleChange}/>
         <button
           disabled={loading}
           className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>
@@ -63,6 +64,18 @@ export default function Signup() {
         </Link>
       </div>
       {error && <p className='text-red-500 mt-5'>{error}</p>}
+      <div>
     </div>
+    <div className='gap-2 mt-3 font-semibold'>
+    <p>By signing up you agree to our
+    <Link to={"/terms"}>
+      <span className='text-blue-700 hover:underline'> Terms of Service </span>
+    </Link>
+    and 
+    <Link to={"/privacy"}>
+      <span className='text-blue-700 hover:underline'> Privacy Policy</span>
+    </Link> </p>
+  </div>
+  </div>
   );
 }

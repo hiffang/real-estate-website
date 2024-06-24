@@ -10,18 +10,33 @@ const listingSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    rules: {
+      type: String,
+    },
     address: {
       type: String,
       required: true,
+      
     },
-    regularPrice: {
+    district: {
+      type: String,
+      required: true,
+      
+    },
+    city: {
+      type: String,
+      required: true,
+      
+    },
+    rent: {
       type: Number,
       required: true,
     },
-    discountPrice: {
-      type: Number,
-      required: true,
+    rentType: {
+      type: String,
+      required:true,
     },
+    
     bathrooms: {
       type: Number,
       required: true,
@@ -42,7 +57,15 @@ const listingSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    offer: {
+    kitchen: {
+      type: Boolean,
+      required: true,
+    },
+    aircondition: {
+      type: Boolean,
+      required: true,
+    },
+    hotwater: {
       type: Boolean,
       required: true,
     },
@@ -53,6 +76,11 @@ const listingSchema = new mongoose.Schema(
     userRef: {
       type: String,
       required: true,
+    },
+    status: { 
+      type: String, 
+      enum: ['pending', 'approved', 'rejected'],
+      default: 'pending' 
     },
   },
   { timestamps: true }

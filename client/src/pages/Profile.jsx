@@ -19,6 +19,7 @@ import {
 } from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+
 export default function Profile() {
   const fileRef = useRef(null);
   const { currentUser, loading, error } = useSelector((state) => state.user);
@@ -96,6 +97,8 @@ export default function Profile() {
   };
 
   const handleDeleteUser = async () => {
+    const userConfirmed = window.confirm('Are you sure you want to delete your account? This action cannot be undone.');
+    if (userConfirmed) {
     try {
       dispatch(deleteUserStart());
       const res = await fetch(`/api/user/delete/${currentUser._id}`, {
@@ -110,6 +113,9 @@ export default function Profile() {
     } catch (error) {
       dispatch(deleteUserFailure(error.message));
     }
+  } else {
+    console.log('User canceled the deletion');
+  }
   };
 
   const handleSignOut = async () => {
@@ -123,7 +129,7 @@ export default function Profile() {
       }
       dispatch(deleteUserSuccess(data));
     } catch (error) {
-      dispatch(deleteUserFailure(data.message));
+      dispatch(deleteUserFailure(error.message));
     }
   };
 
@@ -144,7 +150,9 @@ export default function Profile() {
   };
 
   const handleListingDelete = async (listingId) => {
-    try {
+    const userConfirm = window.confirm('Are you sure you want to delete this listing? This action cannot be undone.');
+    if (userConfirm) {
+      try {
       const res = await fetch(`/api/listing/delete/${listingId}`, {
         method: 'DELETE',
       });
@@ -160,7 +168,12 @@ export default function Profile() {
     } catch (error) {
       console.log(error.message);
     }
+    } else {
+      console.log("Canceled");
+    }
+    
   };
+
   return (
     <div className='p-3 max-w-lg mx-auto'>
       <h1 className='text-3xl font-semibold text-center my-7'>Profile</h1>
@@ -214,6 +227,18 @@ export default function Profile() {
           id='password'
           className='border p-3 rounded-lg'
         />
+        <input
+          type='phonenumber'
+          placeholder='Phone Number'
+          onChange={handleChange}
+          id='number'
+          defaultValue={currentUser.number}
+          className='border p-3 rounded-lg'
+        />
+        {currentUser.number === '' && (
+        <p className='text-red-700 mt-5'>Please add a phone number</p>
+      )}
+        
         <button
           disabled={loading}
           className='bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80'
@@ -243,6 +268,9 @@ export default function Profile() {
       <p className='text-green-700 mt-5'>
         {updateSuccess ? 'User is updated successfully!' : ''}
       </p>
+
+      
+
       <button onClick={handleShowListings} className='text-green-700 w-full'>
         Show Listings
       </button>
