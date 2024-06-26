@@ -2,6 +2,7 @@ import bcryptjs from 'bcryptjs';
 import User from '../models/user.model.js';
 import { errorHandler } from '../utils/error.js';
 import Listing from '../models/listing.model.js';
+import { auth } from '../../client/src/firebase.js';
 
 
 export const test = (req,res) => {
@@ -11,34 +12,52 @@ export const test = (req,res) => {
 };
 
 export const updateUser = async (req, res, next) => {
-    if (req.user.id !== req.params.id)
-      return next(errorHandler(401, 'You can only update your own account!'));
-    try {
-      if (req.body.password) {
-        req.body.password = bcryptjs.hashSync(req.body.password, 10);
-      }
-  
-      const updatedUser = await User.findByIdAndUpdate(
-        req.params.id,
-        {
-          $set: {
-            username: req.body.username,
-            email: req.body.email,
-            password: req.body.password,
-            number:req.body.number,
-            avatar: req.body.avatar,
-          },
-        },
-        { new: true }
-      );
-  
-      const { password, ...rest } = updatedUser._doc;
-  
-      res.status(200).json(rest);
-    } catch (error) {
-      next(error);
+  if (req.user.id !== req.params.id)
+    return next(errorHandler(401, 'You can only update your own account!'));
+
+  try {
+    // Fetch the user from MongoDB
+    const existingUser = await User.findById(req.params.id);
+    if (!existingUser) return next(errorHandler(404, 'User not found!'));
+
+    // Prepare update payload
+    const updatePayload = {};
+    if (req.body.username) updatePayload.displayName = req.body.username;
+    if (req.body.email) updatePayload.email = req.body.email;
+    if (req.body.password) updatePayload.password = req.body.password;
+
+    // Update user in Firebase
+    if (Object.keys(updatePayload).length > 0) {
+      await auth.updateUser(existingUser.uid, updatePayload);
     }
-  };
+
+    // Hash password if it is being updated
+    if (req.body.password) {
+      req.body.password = bcryptjs.hashSync(req.body.password, 10);
+    }
+
+    // Update user in MongoDB
+    const updatedUser = await User.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: {
+          username: req.body.username,
+          email: req.body.email,
+          password: req.body.password,
+          number: req.body.number,
+          avatar: req.body.avatar,
+        },
+      },
+      { new: true }
+    );
+
+    const { password, ...rest } = updatedUser._doc;
+
+    res.status(200).json(rest);
+  } catch (error) {
+    next(error);
+  }
+};
   
   export const deleteUser = async (req, res, next) => {
     if (req.user.id !== req.params.id)

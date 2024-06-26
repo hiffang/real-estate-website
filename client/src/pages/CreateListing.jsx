@@ -30,8 +30,9 @@ export default function CreateListing() {
     city: '',
     type: 'singleroom',
     rentType:'monthly',
-    bedrooms: 1,
-    bathrooms: 1,
+    bedrooms: 0,
+    bathrooms: 0,
+    beds: 0,
     rent: '',
     parking: false,
     furnished: false,
@@ -61,8 +62,8 @@ export default function CreateListing() {
       const promises = [];
 
       for (let i = 0; i < files.length; i++) {
-        if (files[i].size > 2 * 1024 * 1024) {
-          setImageUploadError('Each image must be less than 2 MB');
+        if (files[i].size > 5 * 1024 * 1024) {
+          setImageUploadError('Each image must be less than 5 MB');
           setUploading(false);
           return;
         }
@@ -134,6 +135,8 @@ export default function CreateListing() {
         [id]: value,
       });
     }
+
+    
   };
 
 
@@ -467,19 +470,41 @@ export default function CreateListing() {
                 </button>
               </div>
             ))} 
-            <div className='flex items-center gap-2'>
-            <input
-              type='number'
-              id='bedrooms'
-              min='1'
-              max='10'
-              required
-              className='p-3 border border-gray-300 rounded-lg'
-              onChange={handleChange}
-              value={formData.bedrooms}
-            />
-            <p>Beds</p>
-          </div>
+            
+{(formData.type === 'guesthouse' || formData.type === 'annex' || formData.type === 'bungalow' || formData.type === 'fullhouseholiday' || formData.type === 'fullhouserent') && (
+  <div className='flex items-center gap-2'>
+    <input
+      type='number'
+      id='bedrooms'
+      min='1'
+      max='10'
+      required
+      className='p-3 border border-gray-300 rounded-lg'
+      onChange={handleChange}
+      value={formData.bedrooms}
+    />
+    <p>Bedrooms</p>
+  </div>
+)}
+
+{(formData.type === 'singleroom' || formData.type === 'sharedroom' || formData.type === 'hostel') && (
+  <div className='flex items-center gap-2'>
+    <input
+      type='number'
+      id='beds'
+      min='1'
+      max='10'
+      required
+      className='p-3 border border-gray-300 rounded-lg'
+      onChange={handleChange}
+      value={formData.beds}
+    />
+    <p>Beds per room</p>
+  </div>
+)}
+
+
+            
           <div className='flex items-center gap-2'>
             <input
               type='number'
@@ -493,7 +518,8 @@ export default function CreateListing() {
             />
             <p>Bathrooms</p>
           </div>
-
+        
+        
           <div className='flex items-center gap-2'>
             <input
               type='number'

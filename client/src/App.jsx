@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import SignIn from './pages/SignIn';
@@ -20,9 +20,48 @@ import DashboardApprove from './pages/Dashboard/DashboardApprove.jsx';
 import DashboardHome from './pages/Dashboard/DashboardHome.jsx';
 import DashboardListings from './pages/Dashboard/DashboardListings.jsx';
 import DashboardAnalytics from './pages/Dashboard/DashboardAnalytics.jsx'
+import ForgotPassword from './pages/ForgotPassword.jsx';
+import ResetPassword from './pages/ResetPassword.jsx';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { deleteUserFailure, deleteUserSuccess, signOutUserStart } from './redux/user/userSlice.js';
+
+
 
 
 export default function App() {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const handleBeforeUnload = async (event) => {
+      // Make an API call to log out the user
+      try {
+        dispatch(signOutUserStart());
+        const res = await fetch('/api/auth/logout', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        const data = await res.json();
+        if (!data.success) {
+          dispatch(deleteUserFailure(data.message));
+          return;
+        }
+        dispatch(deleteUserSuccess(data));
+      } catch (error) {
+        dispatch(deleteUserFailure(error.message));
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
+
   return (
     <BrowserRouter>
     <Header />
@@ -35,6 +74,8 @@ export default function App() {
         <Route path='/search' element={<Search />} />
         <Route path='/terms' element={<TermsOfService />} />
         <Route path='/privacy' element={<PrivacyPolicy />} />
+        <Route path='/forgotpassword' element={<ForgotPassword />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path='/listing/:listingId' element={<Listing />} />
         
         <Route element={<PrivateRoute />}>

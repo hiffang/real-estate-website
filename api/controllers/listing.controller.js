@@ -6,7 +6,7 @@ export const createListing = async (req, res, next) => {
   try {
     const newListing = {
       ...req.body,
-      status: 'pending',
+      status: 'approved',
     };
     
     const listing = await Listing.create(newListing);

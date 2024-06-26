@@ -11,7 +11,7 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-3">Contact Us</h3>
             <ul className="text-sm">
               <li>Phone: +94713457947</li>
-              <li>Email: contact@yourcompany.com</li>
+              <li>Email: support@bordima.lk</li>
               
             </ul>
           </div>

@@ -141,12 +141,22 @@ export default function Listing() {
             </p>
             <p className='font-semibold'>Facilities:</p>
             <ul className='text-green-900 font-semibold text-sm flex flex-wrap items-center gap-4 sm:gap-6'> 
-              <li className='flex items-center gap-1 whitespace-nowrap '>
+              {(listing.type === 'singleroom' || listing.type === 'sharedroom' || listing.type === 'hostel') && ( 
+                <li className='flex items-center gap-1 whitespace-nowrap '>
+                <FaBed className='text-lg' />
+                {listing.beds > 1
+                  ? `${listing.beds} beds `
+                  : `${listing.beds} bed `}
+              </li>)}
+
+              {(listing.type === 'annex' || listing.type === 'bungalow' || listing.type === 'guesthouse' || listing.type === 'fullhouseholiday' || listing.type === 'fullhouserent') && ( 
+                <li className='flex items-center gap-1 whitespace-nowrap '>
                 <FaBed className='text-lg' />
                 {listing.bedrooms > 1
-                  ? `${listing.bedrooms} beds `
-                  : `${listing.bedrooms} bed `}
-              </li>
+                  ? `${listing.beds} bedrooms `
+                  : `${listing.beds} bedroom `}
+              </li>)}
+             
               <li className='flex items-center gap-1 whitespace-nowrap '>
                 <FaBath className='text-lg' />
                 {listing.bathrooms > 1

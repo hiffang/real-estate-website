@@ -29,18 +29,28 @@ export default function ListingItem({ listing }) {
             {listing.rent}/{listing.rentType}
           </p>
           
+          
           <div className='text-slate-700 flex gap-4'>
+            
+          {(listing.type === 'singleroom' || listing.type === 'sharedroom' || listing.type === 'hostel') && (
             <div className='font-bold text-xs'>
-              {listing.bedrooms > 1
-                ? `${listing.bedrooms} beds `
-                : `${listing.bedrooms} bed `}
-            </div>
-            <div className='font-bold text-xs'>
+              {listing.beds > 1
+                ? `${listing.beds} beds `
+                : `${listing.beds} bed `}
+            </div>)}
+            {(listing.type === 'annex' || listing.type === 'bungalow' || listing.type === 'guesthouse' || listing.type === 'fullhouseholiday' || listing.type === 'fullhouserent') && ( 
+               <div className='font-bold text-xs'>
+               {listing.bedrooms > 1
+                 ? `${listing.bedrooms} bedrooms `
+                 : `${listing.bedrooms} bedroom `}
+             </div>
+            )}
+          <div className='font-bold text-xs'>
               {listing.bathrooms > 1
                 ? `${listing.bathrooms} bathrooms `
                 : `${listing.bathrooms} bathroom `}
             </div>
-          </div>
+            </div>
         </div>
       </Link>
     </div>

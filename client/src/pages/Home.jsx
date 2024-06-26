@@ -94,9 +94,9 @@ export default function Home() {
       We have a wide range of properties for you to choose from.
     </div>
     <Link to={'/search'}>
-      <button className='bg-blue-500 text-white text-lg md:text-xl lg:text-2xl font-bold py-3 px-6 rounded-full hover:bg-blue-700 transition-colors duration-200 inline-flex items-center justify-center'>
-        Let's get started...
-      </button>
+    <button className='bg-blue-500 text-white text-lg md:text-xl lg:text-2xl font-bold font-custom py-3 px-6 rounded-full hover:bg-blue-700 transition-colors duration-200 inline-flex items-center justify-center animate-pulse-custom'>
+      Let's get started...
+    </button>
     </Link>
   </div>
 </div>
@@ -155,7 +155,7 @@ export default function Home() {
 {guesthouseListings.length > 0 ? (
           <div>
             <div className='my-3'>
-              <h2 className='text-2xl font-semibold text-slate-600'>Recent Guest house listings</h2>
+              <h2 className='text-2xl font-semibold text-slate-600'>Recent Guest houses</h2>
               <Link className='text-sm text-blue-800 hover:underline' to={'/search?type=guesthouse'}>Show more guest houses...</Link>
             </div>
             <div className='flex flex-wrap gap-4'>
@@ -171,7 +171,7 @@ export default function Home() {
 {annexListings.length > 0 ? (
           <div>
             <div className='my-3'>
-              <h2 className='text-2xl font-semibold text-slate-600'>Recent Annex listings</h2>
+              <h2 className='text-2xl font-semibold text-slate-600'>Recent Annexes</h2>
               <Link className='text-sm text-blue-800 hover:underline' to={'/search?type=annex'}>Show more annexes...</Link>
             </div>
             <div className='flex flex-wrap gap-4'>
@@ -187,7 +187,7 @@ export default function Home() {
 {bungalowListings.length > 0 ? (
           <div>
             <div className='my-3'>
-              <h2 className='text-2xl font-semibold text-slate-600'>Recent Bungalow listings</h2>
+              <h2 className='text-2xl font-semibold text-slate-600'>Recent Bungalows</h2>
               <Link className='text-sm text-blue-800 hover:underline' to={'/search?type=bungalow'}>Show more bungalows...</Link>
             </div>
             <div className='flex flex-wrap gap-4'>
@@ -219,8 +219,8 @@ export default function Home() {
 {fullhouserentListings.length > 0 ? (
           <div>
             <div className='my-3'>
-              <h2 className='text-2xl font-semibold text-slate-600'>Recent full houses for rent...</h2>
-              <Link className='text-sm text-blue-800 hover:underline' to={'/search?type=fullhouserent'}>Show more full houses for rent</Link>
+              <h2 className='text-2xl font-semibold text-slate-600'>Recent full houses for rent</h2>
+              <Link className='text-sm text-blue-800 hover:underline' to={'/search?type=fullhouserent'}>Show more full houses for rent...</Link>
             </div>
             <div className='flex flex-wrap gap-4'>
               {fullhouserentListings.map((listing) => (

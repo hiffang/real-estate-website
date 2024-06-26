@@ -26,8 +26,11 @@ export const signin = async (req, res, next) => {
       if (!validPassword) return next(errorHandler(401, 'Wrong credentials!'));
       const token = jwt.sign({ id: validUser._id, isAdmin:validUser.isAdmin }, process.env.JWT_SECRET);
       const { password: pass, ...rest } = validUser._doc;
+      const tenYears = 10 * 365 * 24 * 60 * 60 * 1000;
       res
-        .cookie('access_token', token, { httpOnly: true })
+        .cookie('access_token', token, { httpOnly: true,
+          sameSite: 'Strict',
+          maxAge: tenYears })
         .status(200)
         .json(rest);
     } catch (error) {
@@ -41,8 +44,13 @@ export const signin = async (req, res, next) => {
       if (user) {
         const token = jwt.sign({ id: user._id, isAdmin:user.isAdmin }, process.env.JWT_SECRET);
         const { password: pass, ...rest } = user._doc;
+        const tenYears = 10 * 365 * 24 * 60 * 60 * 1000;
         res
-          .cookie('access_token', token, { httpOnly: true })
+          .cookie('access_token', token, { 
+            httpOnly: true,
+            sameSite: 'Strict',
+            maxAge: tenYears
+          })
           .status(200)
           .json(rest);
       } else {

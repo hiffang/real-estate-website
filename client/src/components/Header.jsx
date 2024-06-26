@@ -82,7 +82,7 @@ export default function Header() {
             </Link>
             <Link to='/create-listing'>
               <li className='text-black text-1xl font-semibold py-1 hover:text-cyan-400 transition'>
-                Add your listing
+                Add your place
               </li>
             </Link>
             <Link to='/profile'>
@@ -93,7 +93,7 @@ export default function Header() {
                   alt='profile'
                 />
               ) : (
-                <li className='text-white font-semibold'> <button className='bg-red-700 rounded-full px-2 py-1 hover:bg-orange-500 transition'>Sign In</button></li>
+                <li className='text-white font-semibold'> <button className='bg-red-700 rounded-lg px-3 py-1 hover:bg-orange-500 transition'>Sign In</button></li>
               )}
             </Link>
             {currentUser && currentUser.isAdmin && (
@@ -111,18 +111,18 @@ export default function Header() {
         <div className='sm:hidden bg-orange-100 shadow-md font-bold'>
           <ul className='flex flex-col items-center gap-4 p-4'>
             <Link to='/' onClick={closeMenu}>
-              <li className='text-slate-700 hover:underline hover:text-cyan-400 hover:animate-pulse'>
+              <li className='text-slate-700 hover:underline hover:text-cyan-400 transition'>
                 Home
               </li>
             </Link>
             <Link to='/about' onClick={closeMenu}>
-              <li className='text-slate-700 hover:underline hover:text-cyan-400 hover:animate-pulse'>
+              <li className='text-slate-700 hover:underline hover:text-cyan-400 transition'>
                 About
               </li>
             </Link>
             <Link to='/create-listing' onClick={closeMenu}>
-              <li className='text-slate-700 hover:underline hover:text-cyan-400 hover:animate-pulse'>
-                Create a Listing
+              <li className='text-slate-700 hover:underline hover:text-cyan-400 transition'>
+                Add your place
               </li>
             </Link>
             <Link to='/profile' onClick={closeMenu}>

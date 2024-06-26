@@ -77,6 +77,9 @@ export default function SignIn() {
           <span className='text-blue-700'>Sign up</span>
         </Link>
       </div>
+      <p>
+        Forgot your password? <Link to="/forgotpassword"><span className='text-yellow-500'>Reset it here</span></Link>
+      </p>
       {error && <p className='text-red-500 mt-5'>{error}</p>}
     </div>
   );
